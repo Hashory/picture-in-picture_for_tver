@@ -1,0 +1,15 @@
+{
+	"tasks": {
+		"bundle": "deno run --allow-read=./source,./public,./dist --allow-write=./dist --allow-env=DENO_DIR,DENO_AUTH_TOKENS --allow-net=jsr.io bundle.ts"
+	},
+	"fmt": {
+		"useTabs": true,
+		"singleQuote": true,
+		"exclude": ["./dist"]
+	},
+	"lock": false,
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
+		"types": ["https://unpkg.com/@types/chrome@0.0.270/index.d.ts"]
+	}
+}

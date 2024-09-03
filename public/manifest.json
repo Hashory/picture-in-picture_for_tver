@@ -1,0 +1,40 @@
+{
+	"manifest_version": 3,
+	"name": "ピクチャーインピクチャー for TVer",
+	"version": "1.0",
+	"description": "tver.jp の動画をピクチャーインピクチャーで視聴できるようにします。",
+	"host_permissions": [
+		"*://tver.jp/*"
+	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "icon/icon16.png",
+			"48": "icon/icon48.png",
+			"32": "icon/icon32.png",
+			"128": "icon/icon128.png",
+			"256": "icon/icon256.png"
+		}
+	},
+	"icons": {
+		"16": "icon/icon16.png",
+		"32": "icon/icon32.png",
+		"48": "icon/icon48.png",
+		"128": "icon/icon128.png",
+		"256": "icon/icon256.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://tver.jp/*"],
+			"js": ["contentscript.js"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"pinp.svg"
+			],
+			"matches": ["*://tver.jp/*"]
+		}
+	]
+}
