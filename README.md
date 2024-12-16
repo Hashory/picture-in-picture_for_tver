@@ -11,7 +11,9 @@
 
 ## インストール
 
-// TODO
+<a href="https://chromewebstore.google.com/detail/%E3%83%94%E3%82%AF%E3%83%81%E3%83%A3%E3%83%BC%E3%82%A4%E3%83%B3%E3%83%94%E3%82%AF%E3%83%81%E3%83%A3%E3%83%BC-for-tver/iekdfbldkiobbodiohkcmjekclmippja">
+   <img src="https://github.com/user-attachments/assets/d4a03bdd-daa8-4dbc-9479-6334d995782a" alt="Chromium向けに「ピクチャーインピクチャー for TVer」を入手する">
+</a>
 
 ## 開発
 
