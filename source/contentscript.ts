@@ -9,6 +9,11 @@ const customButtonClassName = 'picture-in-picture_for_tver_pinp_button';
 const playerContainerSelector = '[class*="player_container"]';
 
 /**
+ * プレイヤーコンテナのセレクタ2
+ */
+const episodePlayerContainerSelector = '[class*="PlayerLayout_jail"]';
+
+/**
  * ビデオ要素のセレクタ
  */
 const videoSelector = 'video.vjs-tech';
@@ -52,7 +57,7 @@ function isButtonAdded(): boolean {
 function observePlayerContainer(): void {
 	const playerContainerElement = document.querySelector(
 		playerContainerSelector,
-	);
+	) || document.querySelector(episodePlayerContainerSelector);
 	if (!playerContainerElement) return;
 
 	const observer = new MutationObserver((mutations) => {
