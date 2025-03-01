@@ -149,5 +149,17 @@ function pinp(): void {
 	}
 }
 
+/**
+ * キーボードショートカットの追加
+ * @param event キーボードイベント
+ */
+function handleKeydownEvent(event: KeyboardEvent): void {
+	if (event.key === 'P' || event.key === 'p') {
+		pinp();
+	}
+}
+
+document.addEventListener('keydown', handleKeydownEvent);
+
 // スクリプト初期化
 initialize();
