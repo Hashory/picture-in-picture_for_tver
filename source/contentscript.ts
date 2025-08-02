@@ -77,8 +77,8 @@ function observePlayerContainer(): void {
  */
 function addPinpButton(): void {
 	const controllerSpacerElement = document.querySelector(
-		'[class*="controller_spacer"]',
-	);
+		'[class*="VodController_spacer"]',
+	) || document.querySelector('[class*="LiveController_spacer"]');
 	if (!controllerSpacerElement || isButtonAdded()) return;
 
 	const nextTooltipContainer = controllerSpacerElement.nextElementSibling;
@@ -107,20 +107,31 @@ function cloneTooltipContainer(original: HTMLDivElement): HTMLDivElement {
  * @param container ツールチップコンテナー
  */
 function updateTooltipContent(container: HTMLDivElement): void {
-	const img = container.querySelector('img');
-	if (img) {
+	const buttonContentDiv = container.querySelector('[class*="Button_content"]');
+	if (buttonContentDiv) {
+		const img = document.createElement('img');
 		img.src = chrome.runtime.getURL(buttonIconUrl);
 		img.alt = 'ピクチャーインピクチャー';
 		img.style.filter = 'brightness(1.3)';
+		img.style.display = 'block';
+		img.style.inlineSize = '100%';
+		buttonContentDiv.innerHTML = ''; // 既存の内容をクリア
+		buttonContentDiv.appendChild(img);
 	}
 
-	const textDiv = container.querySelector('div');
-	if (textDiv) {
-		textDiv.textContent = 'ピクチャーインピクチャー';
+	const tooltip = container.querySelector('[class*="Tooltip_tooltip"]');
+	if (tooltip) {
+		tooltip.textContent = 'ピクチャーインピクチャー';
 	}
 
 	const button = container.querySelector('button');
 	if (button) {
+		button.setAttribute('aria-label', 'ピクチャーインピクチャー');
+		button.removeAttribute('aria-haspopup');
+		button.removeAttribute('aria-expanded');
+		button.removeAttribute('aria-controls');
+		button.removeAttribute('data-state');
+
 		button.classList.add(customButtonClassName);
 		button.addEventListener('click', pinp);
 	}

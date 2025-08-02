@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "ピクチャーインピクチャー for TVer",
-	"version": "2.0",
+	"version": "2.1",
 	"description": "tver.jp の動画をピクチャーインピクチャーで視聴できるようにします。",
 	"host_permissions": [
 		"*://tver.jp/*"
