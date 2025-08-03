@@ -161,16 +161,13 @@ function pinp(): void {
 }
 
 /**
- * キーボードショートカットの追加
- * @param event キーボードイベント
+ * メッセージリスナーを追加
  */
-function handleKeydownEvent(event: KeyboardEvent): void {
-	if (event.key === 'P' || event.key === 'p') {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	if (message.action === 'trigger-pip') {
 		pinp();
 	}
-}
-
-document.addEventListener('keydown', handleKeydownEvent);
+});
 
 // スクリプト初期化
 initialize();

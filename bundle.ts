@@ -15,7 +15,7 @@ async function main() {
 	const publicDir = new URL('./public/', import.meta.url);
 
 	// Define the source files to bundle
-	const sourceFiles = ['contentscript.ts'];
+	const sourceFiles = ['contentscript.ts', 'background.ts'];
 
 	// Clear the contents of the dist directory
 	await emptyDir(distDir);
