@@ -6,6 +6,21 @@
 	"host_permissions": [
 		"*://tver.jp/*"
 	],
+	"permissions": [
+		"activeTab"
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"commands": {
+		"toggle-picture-in-picture": {
+			"suggested_key": {
+				"default": "Alt+P",
+				"mac": "Alt+P"
+			},
+			"description": "ピクチャーインピクチャーを切り替える"
+		}
+	},
 	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
