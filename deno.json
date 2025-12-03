@@ -1,6 +1,6 @@
 {
 	"tasks": {
-		"bundle": "deno run --allow-read=./source,./public,./dist --allow-write=./dist --allow-env=DENO_DIR,DENO_AUTH_TOKENS --allow-net=jsr.io bundle.ts"
+		"bundle": "deno run --allow-read=./source,./public,./dist --allow-write=./dist --allow-env=DENO_DIR,DENO_AUTH_TOKENS --allow-net=jsr.io --unstable-bundle bundle.ts"
 	},
 	"fmt": {
 		"useTabs": true,

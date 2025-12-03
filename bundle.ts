@@ -1,11 +1,16 @@
-import { bundle } from 'jsr:@deno/emit@0.45.0';
 import { copy, emptyDir } from 'jsr:@std/fs@1.0.2';
 
 async function bundleFile(sourcePath: string | URL, outputPath: string | URL) {
-	const result = await bundle(sourcePath, {
-		'minify': true,
-	});
-	await Deno.writeTextFile(outputPath, result.code);
+	console.log(`Bundling ${sourcePath} to ${outputPath}`);
+	const result = await Deno.bundle({
+		entrypoints: [sourcePath.toString()],
+		output: outputPath.toString(),
+		platform: "browser",
+		minnify: true,
+		write: true,
+	})
+	console.log(result)
+	// await Deno.writeTextFile(outputPath, result.code);
 }
 
 async function main() {
@@ -24,7 +29,7 @@ async function main() {
 	for (const file of sourceFiles) {
 		await bundleFile(
 			new URL(file, sourceDir),
-			new URL(file.replace(/\.ts$/, '.js'), distDir),
+			new URL(distDir),
 		);
 	}
 
