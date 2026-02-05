@@ -28,6 +28,9 @@ function initialize(): void {
 	// アニメーションイベントリスナー
 	document.addEventListener('animationstart', handleAnimationStart, true);
 
+	// サポート用のCSSを注入
+	injectSupportStyle();
+
 	// キーボードショートカット
 	document.addEventListener('keydown', handleKeydownEvent);
 }
@@ -50,6 +53,31 @@ function initializeNextJsWatcher() {
 }
 
 /**
+ * サポート用のCSSを注入
+ */
+function injectSupportStyle() {
+	const style = document.createElement('style');
+
+	// ミニプレイヤーのボタンとツールチップの位置の調整
+	style.textContent = `
+    [class*="MiniPlayerController_buttons"] {
+			& [class*="Tooltip_wrapper"][class*="Volume_wrapper"] {
+				flex: 1;
+			}
+
+			& .${customButtonClassName} {
+				+ [class*="Tooltip_tooltip"] {
+					right: 0;
+					left: auto;
+					transform: translateX(0);
+				}
+			}
+		}
+	`;
+	document.head.appendChild(style);
+}
+
+/**
  * DOM出現検知用のCSSを注入
  * コントローラーエリアが表示された瞬間にanimationstartイベントを発火させる
  */
@@ -64,7 +92,9 @@ function injectDetectionStyle() {
 		// コントローラーエリア (VodController_spacer または LiveController_spacer)
 		// が出現・再描画されたらアニメーションを発火
 		`
-		[class*="VodController_spacer"], [class*="LiveController_spacer"] {
+		[class*="VodController_spacer"],
+		[class*="LiveController_spacer"],
+		[class*="Tooltip_wrapper"][class*="Volume_wrapper"] {
 			animation: ${animationName} 0.001s;
 		}
 	`;
@@ -97,15 +127,28 @@ function addPinpButton(): void {
 	// 既にボタンがある場合は何もしない
 	if (isButtonAdded()) return;
 
+	// コントローラーエリアの要素のスペーサーを取得
 	const controllerSpacerElement = document.querySelector(
 		'[class*="VodController_spacer"]',
-	) || document.querySelector('[class*="LiveController_spacer"]');
+	) || document.querySelector('[class*="LiveController_spacer"]') ||
+		// ミニプレイヤーのコントローラーの音量ボタン要素を取得
+		document.querySelector(
+			'[class*="Tooltip_wrapper"][class*="Volume_wrapper"]',
+		) ||
+		document.querySelector('[class*="Tooltip_wrapper"]');
 
 	if (!controllerSpacerElement) return;
 
-	const nextTooltipContainer = controllerSpacerElement.nextElementSibling;
-	if (nextTooltipContainer instanceof HTMLDivElement) {
-		const pinpTooltipContainer = cloneTooltipContainer(nextTooltipContainer);
+	// 再生ボタンのツールチップ付き要素を取得
+	const buttonTooltipContainer = document.querySelector(
+		'[class*="Tooltip_wrapper"]:has([class*="Button_button"][class*="Play_icon"])',
+	) ||
+		// 再生ボタンのツールチップ付き要素を取得
+		document.querySelector(
+			'[class*="Tooltip_wrapper"]:has([class*="Button_button"])',
+		);
+	if (buttonTooltipContainer instanceof HTMLDivElement) {
+		const pinpTooltipContainer = cloneTooltipContainer(buttonTooltipContainer);
 		controllerSpacerElement.insertAdjacentElement(
 			'afterend',
 			pinpTooltipContainer,
