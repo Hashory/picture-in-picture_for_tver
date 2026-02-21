@@ -45,6 +45,25 @@
    deno fmt
    ```
 
+### E2Eテスト（Playwright）
+
+TVerの実サイトで、以下をE2Eで確認できます。
+
+- ピクチャーインピクチャーボタンが正しく表示されること
+- ピクチャーインピクチャーに遷移できること
+
+事前準備:
+
+```sh
+deno task e2e:install
+```
+
+実行方法:
+
+```sh
+deno task e2e
+```
+
 ## ライセンス
 
 [CC0-1.0 license](LICENSE)

@@ -1,6 +1,12 @@
 {
+	"imports": {
+		"playwright": "npm:playwright@^1.58.2"
+	},
 	"tasks": {
-		"bundle": "deno run --allow-read=./source,./public,./dist --allow-write=./dist --allow-env=DENO_DIR,DENO_AUTH_TOKENS --allow-net=jsr.io bundle.ts"
+		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts",
+		"e2e:install": "deno run -A npm:playwright@^1.58.2 install chromium",
+		"e2e": "deno task bundle && xvfb-run deno run -A tests/e2e/run_playwright.ts",
+		"e2e:ui": "deno task bundle && deno run -A tests/e2e/run_playwright.ts"
 	},
 	"fmt": {
 		"useTabs": true,
