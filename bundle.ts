@@ -1,5 +1,5 @@
-import { bundle } from 'jsr:@deno/emit@0.45.0';
-import { copy, emptyDir } from 'jsr:@std/fs@1.0.2';
+import { bundle } from '@deno/emit';
+import { copy, emptyDir } from '@std/fs';
 
 async function bundleFile(sourcePath: string | URL, outputPath: string | URL) {
 	const result = await bundle(sourcePath, {
