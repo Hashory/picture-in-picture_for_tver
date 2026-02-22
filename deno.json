@@ -9,16 +9,29 @@
 		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts",
 		"e2e:install": "deno run -A npm:playwright@^1.58.2 install chromium",
 		"e2e": "deno task bundle && xvfb-run deno run -A tests/e2e/run_playwright.ts",
-		"e2e:ui": "deno task bundle && deno run -A tests/e2e/run_playwright.ts"
+		"e2e:ui": "deno task bundle && deno run -A tests/e2e/run_playwright.ts",
+		"docker:build": "cd docker-runner && docker compose build",
+		"docker:up": "cd docker-runner && docker compose up -d",
+		"docker:down": "cd docker-runner && docker compose down",
+		"docker:logs": "cd docker-runner && docker compose logs -f"
 	},
 	"fmt": {
 		"useTabs": true,
 		"singleQuote": true,
-		"exclude": ["./dist"]
+		"exclude": [
+			"./dist"
+		]
 	},
 	"lock": false,
 	"compilerOptions": {
-		"lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
-		"types": ["https://unpkg.com/@types/chrome@0.0.270/index.d.ts"]
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"dom.asynciterable",
+			"deno.ns"
+		],
+		"types": [
+			"https://unpkg.com/@types/chrome@0.0.270/index.d.ts"
+		]
 	}
 }

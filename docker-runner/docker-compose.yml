@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  runner:
+    build: .
+    image: raspi-github-runner:latest
+    container_name: github-runner
+    env_file:
+      - .env
+    restart: unless-stopped

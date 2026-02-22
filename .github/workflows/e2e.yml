@@ -1,0 +1,31 @@
+name: E2E Tests (Self-Hosted)
+
+on:
+  schedule:
+    # Run daily at 21:00 UTC (06:00 JST)
+    - cron: '0 21 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  run-e2e-tests:
+    # We specify the custom label we set up in our Docker runner
+    runs-on: [self-hosted, tver-pinp-test]
+    environment: self-hosted-e2e
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Deno dependencies
+        run: deno cache deno.json
+
+      - name: Build the extension
+        run: deno task bundle
+
+      - name: Install Playwright browsers
+        run: deno task e2e:install
+
+      - name: Run E2E Tests (Headed via Xvfb)
+        # Using xvfb-run since we need a display server for the 'headed' test on Linux
+        run: deno task e2e
