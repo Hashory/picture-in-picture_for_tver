@@ -5,7 +5,7 @@
 		"playwright": "npm:playwright@^1.58.2"
 	},
 	"tasks": {
-		"check": "deno check **/*.ts",
+		"check": "deno check --allow-import **/*.ts",
 		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts",
 		"e2e:install": "deno run -A npm:playwright@^1.58.2 install chromium",
 		"e2e": "deno task bundle && xvfb-run deno run -A tests/e2e/run_playwright.ts",
