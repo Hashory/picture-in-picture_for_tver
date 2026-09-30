@@ -58,9 +58,16 @@ function initializeNextJsWatcher() {
 function injectSupportStyle() {
 	const style = document.createElement('style');
 
-	// ミニプレイヤーのボタンとツールチップの位置の調整
+	// コントローラーが狭小時に溢れた場合の横スクロール対応とミニプレイヤーのボタン調整
 	style.textContent = `
-    [class*="MiniPlayerController_buttons"] {
+		[class*="LiveController_buttons"],
+		[class*="VodController_buttons"] {
+			overflow-x: auto;
+			overflow-y: hidden;
+			scrollbar-width: thin;
+		}
+
+		[class*="MiniPlayerController_buttons"] {
 			& [class*="Tooltip_wrapper"][class*="Volume_wrapper"] {
 				flex: 1;
 			}
