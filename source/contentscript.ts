@@ -58,8 +58,15 @@ function initializeNextJsWatcher() {
 function injectSupportStyle() {
 	const style = document.createElement('style');
 
-	// コントローラーが狭小時に溢れた場合の横スクロール対応とミニプレイヤーのボタン調整
-	style.textContent = `
+	// フルスクリーンボタンの右マージンを削除
+  // コントローラーが狭小時に溢れた場合の横スクロール対応
+	// ミニプレイヤーのボタン調整
+  style.textContent = `
+    [class*="LiveController_fullscreen"],
+    [class*="VodController_fullscreen"] {
+      margin-right: 0 !important;
+    }
+
 		[class*="LiveController_buttons"],
 		[class*="VodController_buttons"] {
 			overflow-x: auto;
@@ -179,14 +186,16 @@ function cloneTooltipContainer(original: HTMLDivElement): HTMLDivElement {
  * @param container ツールチップコンテナー
  */
 function updateTooltipContent(container: HTMLDivElement): void {
-	const buttonContentDiv = container.querySelector('[class*="Button_content"]');
+	const buttonContentDiv = container.querySelector('[class*="Button_icon"]');
 	if (buttonContentDiv) {
 		const img = document.createElement('img');
 		img.src = pinpIconUrl; // Base64のDATA URIを使用
-		img.alt = 'ピクチャーインピクチャー';
+		img.alt = '';
 		img.style.filter = 'brightness(1.3)';
-		img.style.display = 'block';
-		img.style.inlineSize = '100%';
+    img.style.display = 'block';
+    img.style.blockSize = '24px';
+    img.style.inlineSize = '24px';
+		img.style.scale = '1.35'; // アイコンのサイズを調整
 		buttonContentDiv.innerHTML = ''; // 既存の内容をクリア
 		buttonContentDiv.appendChild(img);
 	}
