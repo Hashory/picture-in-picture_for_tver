@@ -1,11 +1,7 @@
 {
-	"imports": {
-		"@deno/emit": "jsr:@deno/emit@0.45.0",
-		"@std/fs": "jsr:@std/fs@1.0.2"
-	},
 	"tasks": {
 		"check": "deno check --allow-import **/*.ts",
-		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts"
+		"bundle": "rm -rf dist && mkdir -p dist && deno bundle --minify --platform=browser --output dist/contentscript.js source/contentscript.ts && deno bundle --minify --platform=browser --output dist/background.js source/background.ts && cp -r public/. dist/"
 	},
 	"fmt": {
 		"useTabs": true,
