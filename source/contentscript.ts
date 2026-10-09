@@ -59,9 +59,9 @@ function injectSupportStyle() {
 	const style = document.createElement('style');
 
 	// フルスクリーンボタンの右マージンを削除
-  // コントローラーが狭小時に溢れた場合の横スクロール対応
+	// コントローラーが狭小時に溢れた場合の横スクロール対応
 	// ミニプレイヤーのボタン調整
-  style.textContent = `
+	style.textContent = `
     [class*="LiveController_fullscreen"],
     [class*="VodController_fullscreen"] {
       margin-right: 0 !important;
@@ -192,9 +192,9 @@ function updateTooltipContent(container: HTMLDivElement): void {
 		img.src = pinpIconUrl; // Base64のDATA URIを使用
 		img.alt = '';
 		img.style.filter = 'brightness(1.3)';
-    img.style.display = 'block';
-    img.style.blockSize = '24px';
-    img.style.inlineSize = '24px';
+		img.style.display = 'block';
+		img.style.blockSize = '24px';
+		img.style.inlineSize = '24px';
 		img.style.scale = '1.35'; // アイコンのサイズを調整
 		buttonContentDiv.innerHTML = ''; // 既存の内容をクリア
 		buttonContentDiv.appendChild(img);

@@ -21,8 +21,8 @@
   - Manifest V3設定。
 - `public/popup.html`
   - 拡張ポップアップUI。
-- `bundle.ts`
-  - Denoで`source/*.ts`をバンドルし`dist`へ出力、`public`をコピー。
+- `deno.json` の `bundle` タスク
+  - 公式の`deno bundle`で`source/*.ts`をバンドルし`dist`へ出力、`public`をコピー。
 - `dist/`
   - 生成物。通常は手編集しない。
 
@@ -35,7 +35,7 @@ deno cache deno.json
 deno task bundle
 deno fmt
 deno lint
-deno check source/*.ts bundle.ts
+deno task check
 ```
 
 - エージェントは、変更対象に無関係な大規模修正を避けてください。
