@@ -1,19 +1,11 @@
 {
 	"imports": {
 		"@deno/emit": "jsr:@deno/emit@0.45.0",
-		"@std/fs": "jsr:@std/fs@1.0.2",
-		"playwright": "npm:playwright@^1.58.2"
+		"@std/fs": "jsr:@std/fs@1.0.2"
 	},
 	"tasks": {
 		"check": "deno check --allow-import **/*.ts",
-		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts",
-		"e2e:install": "deno run -A npm:playwright@^1.58.2 install chromium",
-		"e2e": "deno task bundle && xvfb-run deno run -A tests/e2e/run_playwright.ts",
-		"e2e:ui": "deno task bundle && deno run -A tests/e2e/run_playwright.ts",
-		"docker:build": "cd docker-runner && docker compose build",
-		"docker:up": "cd docker-runner && docker compose up -d",
-		"docker:down": "cd docker-runner && docker compose down",
-		"docker:logs": "cd docker-runner && docker compose logs -f"
+		"bundle": "deno run --allow-read --allow-write=./dist --allow-env --allow-net=jsr.io bundle.ts"
 	},
 	"fmt": {
 		"useTabs": true,
