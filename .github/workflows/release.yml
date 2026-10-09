@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 3.4)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Bump Version, Tag, and Release
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate version
+        run: |
+          if ! echo "${{ inputs.version }}" | grep -Eq '^[0-9]+\.[0-9]+(\.[0-9]+)?$'; then
+            echo "Invalid version format: ${{ inputs.version }} (expected e.g. 3.4)"
+            exit 1
+          fi
+          manifest_version=$(grep -o '"version": "[^"]*"' public/manifest.json | head -n 1 | cut -d'"' -f 4)
+          if [ "$(printf '%s\n%s\n' "$manifest_version" "${{ inputs.version }}" | sort -V | head -n 1)" != "$manifest_version" ]; then
+            echo "Version ${{ inputs.version }} is older than manifest version ${manifest_version}"
+            exit 1
+          fi
+          if [ -n "$(git ls-remote --tags origin "refs/tags/v${{ inputs.version }}")" ]; then
+            echo "Tag v${{ inputs.version }} already exists"
+            exit 1
+          fi
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Bump manifest version and push tag
+        run: |
+          sed -i -E 's/"version": "[^"]+"/"version": "${{ inputs.version }}"/' public/manifest.json
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/manifest.json
+          if git diff --cached --quiet; then
+            echo "Manifest already at ${{ inputs.version }}, skipping commit"
+          else
+            git commit -m "chore: bump version to ${{ inputs.version }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+          git tag "v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"
+
+      - name: Build the extension
+        run: deno task bundle
+
+      - name: Zip the extension
+        run: |
+          cd dist
+          zip -r "../picture-in-picture-for-tver-v${{ inputs.version }}.zip" .
+
+      - name: Create GitHub Release
+        run: >
+          gh release create "v${{ inputs.version }}"
+          "picture-in-picture-for-tver-v${{ inputs.version }}.zip"
+          --title "v${{ inputs.version }}" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
