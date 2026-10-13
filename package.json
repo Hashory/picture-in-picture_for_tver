@@ -1,0 +1,23 @@
+{
+	"name": "picture-in-picture-for-tver",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"bundle": "tsdown",
+		"check": "tsc --noEmit",
+		"lint": "oxlint source tsdown.config.ts",
+		"fmt": "oxfmt --write .",
+		"fmt:check": "oxfmt --check ."
+	},
+	"devDependencies": {
+		"@types/chrome": "0.3.5",
+		"oxfmt": "0.72.0",
+		"oxlint": "1.87.0",
+		"tsdown": "0.23.1",
+		"typescript": "7.0.2"
+	},
+	"engines": {
+		"node": ">=24"
+	},
+	"packageManager": "pnpm@12.11.2"
+}
