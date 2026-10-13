@@ -36,10 +36,17 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          deno-version: v2.x
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Bump manifest version and push tag
         run: |
@@ -57,7 +64,7 @@ jobs:
           git push origin "v${{ inputs.version }}"
 
       - name: Build the extension
-        run: deno task bundle
+        run: pnpm run bundle
 
       - name: Zip the extension
         run: |
