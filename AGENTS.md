@@ -20,7 +20,7 @@
 - `vite.config.ts`
   - Vite+の設定（`pack`によるバンドル、`fmt`による整形、`lint`による静的解析・型チェック）。
 - `package.json`
-  - スクリプト（`bundle` / `check` / `lint` / `fmt`）と依存管理。
+  - 依存関係の管理（Node.js engines / packageManager 定義）。
 - `tsconfig.json`
   - TypeScript型チェック設定。
 - `public/manifest.json`
@@ -35,11 +35,11 @@
 作業前後で以下を実行してください。
 
 ```sh
-vp install # または pnpm install
-vp pack    # または pnpm run bundle
-vp fmt     # または pnpm run fmt
-vp lint    # または pnpm run lint
-vp check   # または pnpm run check
+vp install
+vp pack
+vp fmt
+vp lint
+vp check
 ```
 
 - エージェントは、変更対象に無関係な大規模修正を避けてください。
@@ -96,7 +96,7 @@ vp check   # または pnpm run check
 
 ## 9. リリース運用（ローカル運用）
 
-- このリポジトリでは、まず `vp pack`（または `pnpm run bundle`）で `dist` を生成する。
+- このリポジトリでは、まず `vp pack` で `dist` を生成する。
 - ローカル検証時は `dist` を「パッケージ化されていない拡張機能」として読み込む。
 - バージョン更新が必要な変更では、`public/manifest.json` の `version`
   を忘れず更新する。

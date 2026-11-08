@@ -31,24 +31,18 @@
 
    ```sh
    vp install
-   # または
-   pnpm install
    ```
 
 3. 拡張機能のファイルを`/dist`に生成します。
 
    ```sh
    vp pack
-   # または
-   pnpm run bundle
    ```
 
 4. コードの整形を行います。
 
    ```sh
    vp fmt
-   # または
-   pnpm run fmt
    ```
 
 ## ライセンス

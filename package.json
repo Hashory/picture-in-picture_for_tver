@@ -2,14 +2,6 @@
 	"name": "picture-in-picture-for-tver",
 	"private": true,
 	"type": "module",
-	"scripts": {
-		"bundle": "vp pack",
-		"build": "vp pack",
-		"check": "vp check",
-		"lint": "vp lint",
-		"fmt": "vp fmt",
-		"fmt:check": "vp fmt --check"
-	},
 	"devDependencies": {
 		"@types/chrome": "0.3.7",
 		"typescript": "7.0.2",
