@@ -17,12 +17,16 @@
   - バックグラウンド(service worker)。現在はアンインストールURL設定のみ。
 - `source/pinp_icon.ts`
   - PinPアイコンデータ。
+- `vite.config.ts`
+  - Vite+の設定（`pack`によるバンドル、`fmt`による整形、`lint`による静的解析・型チェック）。
+- `package.json`
+  - 依存関係の管理（Node.js engines / packageManager 定義）。
+- `tsconfig.json`
+  - TypeScript型チェック設定。
 - `public/manifest.json`
   - Manifest V3設定。
 - `public/popup.html`
   - 拡張ポップアップUI。
-- `deno.json` の `bundle` タスク
-  - 公式の`deno bundle`で`source/*.ts`をバンドルし`dist`へ出力、`public`をコピー。
 - `dist/`
   - 生成物。通常は手編集しない。
 
@@ -31,11 +35,11 @@
 作業前後で以下を実行してください。
 
 ```sh
-deno cache deno.json
-deno task bundle
-deno fmt
-deno lint
-deno task check
+vp install
+vp pack
+vp fmt
+vp lint
+vp check
 ```
 
 - エージェントは、変更対象に無関係な大規模修正を避けてください。
@@ -44,8 +48,7 @@ deno task check
 ## 4. 実装ルール
 
 - 既存のコードスタイルを維持する。
-  - インデントはタブ。
-  - 文字列はシングルクオート。
+  - インデントはタブ、文字列はシングルクオート（`vite.config.ts`の`fmt`で管理）。
 - 1文字変数や過剰な抽象化を避け、既存の簡潔な実装方針に合わせる。
 - 追加依存は原則避ける。必要な場合は理由をPR/説明に明記する。
 - 既存コメント・文言は日本語中心だが、英語追加も可（周辺トーンと整合させる）。
@@ -93,7 +96,7 @@ deno task check
 
 ## 9. リリース運用（ローカル運用）
 
-- このリポジトリでは、まず `deno task bundle` で `dist` を生成する。
+- このリポジトリでは、まず `vp pack` で `dist` を生成する。
 - ローカル検証時は `dist` を「パッケージ化されていない拡張機能」として読み込む。
 - バージョン更新が必要な変更では、`public/manifest.json` の `version`
   を忘れず更新する。

@@ -40,7 +40,6 @@ function initialize(): void {
  */
 function initializeNextJsWatcher() {
 	// MAINワールドなのでwindowオブジェクトからnextにアクセス可能
-	// deno-lint-ignore no-explicit-any
 	const next = (window as any).next;
 
 	if (next && next.router && next.router.events) {
@@ -97,7 +96,8 @@ function injectSupportStyle() {
  */
 function injectDetectionStyle() {
 	const style = document.createElement('style');
-	style.textContent = `
+	style.textContent =
+		`
 		@keyframes ${animationName} {
 			from { opacity: 0.99; }
 			to { opacity: 1; }
@@ -142,9 +142,9 @@ function addPinpButton(): void {
 	if (isButtonAdded()) return;
 
 	// コントローラーエリアの要素のスペーサーを取得
-	const controllerSpacerElement = document.querySelector(
-		'[class*="VodController_spacer"]',
-	) || document.querySelector('[class*="LiveController_spacer"]') ||
+	const controllerSpacerElement =
+		document.querySelector('[class*="VodController_spacer"]') ||
+		document.querySelector('[class*="LiveController_spacer"]') ||
 		// ミニプレイヤーのコントローラーの音量ボタン要素を取得
 		document.querySelector(
 			'[class*="Tooltip_wrapper"][class*="Volume_wrapper"]',
@@ -154,9 +154,10 @@ function addPinpButton(): void {
 	if (!controllerSpacerElement) return;
 
 	// 再生ボタンのツールチップ付き要素を取得
-	const buttonTooltipContainer = document.querySelector(
-		'[class*="Tooltip_wrapper"]:has([class*="Button_button"][class*="Play_icon"])',
-	) ||
+	const buttonTooltipContainer =
+		document.querySelector(
+			'[class*="Tooltip_wrapper"]:has([class*="Button_button"][class*="Play_icon"])',
+		) ||
 		// 再生ボタンのツールチップ付き要素を取得
 		document.querySelector(
 			'[class*="Tooltip_wrapper"]:has([class*="Button_button"])',
@@ -231,9 +232,13 @@ function pinp(event?: Event): void {
 	if (videoElement instanceof HTMLVideoElement) {
 		// 無効化を解除
 		videoElement.removeAttribute('disablepictureinpicture');
-		videoElement.addEventListener('enterpictureinpicture', (event) => {
-			event.stopImmediatePropagation();
-		}, true);
+		videoElement.addEventListener(
+			'enterpictureinpicture',
+			(event) => {
+				event.stopImmediatePropagation();
+			},
+			true,
+		);
 
 		// ピクチャーインピクチャー開始
 		// 既にPiP状態なら終了、そうでなければ開始

@@ -36,10 +36,12 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@v1.22.0
         with:
-          deno-version: v2.x
+          node-version: 24
+          cache: true
+          run-install: true
 
       - name: Bump manifest version and push tag
         run: |
@@ -57,7 +59,7 @@ jobs:
           git push origin "v${{ inputs.version }}"
 
       - name: Build the extension
-        run: deno task bundle
+        run: vp pack
 
       - name: Zip the extension
         run: |

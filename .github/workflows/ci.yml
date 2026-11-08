@@ -8,23 +8,22 @@ on:
 
 jobs:
   check:
-    name: Deno Check, Lint, and Format
+    name: Check and Build
     runs-on: ubuntu-slim
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@v1.22.0
         with:
-          deno-version: v2.x
+          node-version: 24
+          cache: true
+          run-install: true
 
-      - name: Format Check
-        run: deno fmt --check
+      - name: Static Analysis
+        run: vp check
 
-      - name: Lint
-        run: deno lint
-
-      - name: Type Check (deno task check)
-        run: deno task check
+      - name: Build
+        run: vp pack

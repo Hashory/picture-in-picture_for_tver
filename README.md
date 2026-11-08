@@ -17,7 +17,7 @@
 
 ## 開発
 
-この拡張機能は、[Deno](https://deno.land/)を使用して開発されています。
+この拡張機能は、[Vite+](https://viteplus.dev/)（[Node.js](https://nodejs.org/) >=24）を使用して開発されています。
 
 ### セットアップ
 
@@ -27,22 +27,22 @@
    git clone https://github.com/Hashory/picture-in-picture_for_tver.git
    ```
 
-2. 開発に必要な型ファイルをキャッシュします。
+2. 依存関係をインストールします。
 
    ```sh
-   deno cache deno.json
+   vp install
    ```
 
 3. 拡張機能のファイルを`/dist`に生成します。
 
    ```sh
-   deno task bundle
+   vp pack
    ```
 
 4. コードの整形を行います。
 
    ```sh
-   deno fmt
+   vp fmt
    ```
 
 ## ライセンス
