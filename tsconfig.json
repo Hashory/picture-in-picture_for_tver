@@ -12,5 +12,5 @@
 		"useUnknownInCatchVariables": true,
 		"allowImportingTsExtensions": true
 	},
-	"include": ["source", "tsdown.config.ts"]
+	"include": ["source", "vite.config.ts"]
 }

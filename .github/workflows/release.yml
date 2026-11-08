@@ -36,17 +36,12 @@ jobs:
             exit 1
           fi
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@v1.22.0
         with:
           node-version: 24
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          cache: true
+          run-install: true
 
       - name: Bump manifest version and push tag
         run: |
@@ -64,7 +59,7 @@ jobs:
           git push origin "v${{ inputs.version }}"
 
       - name: Build the extension
-        run: pnpm run bundle
+        run: vp pack
 
       - name: Zip the extension
         run: |

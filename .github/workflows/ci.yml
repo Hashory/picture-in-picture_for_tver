@@ -8,33 +8,22 @@ on:
 
 jobs:
   check:
-    name: Type Check, Lint, and Format
+    name: Check and Build
     runs-on: ubuntu-slim
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@v1.22.0
         with:
           node-version: 24
-          cache: pnpm
+          cache: true
+          run-install: true
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Format Check
-        run: pnpm run fmt:check
-
-      - name: Lint
-        run: pnpm run lint
-
-      - name: Type Check
-        run: pnpm run check
+      - name: Static Analysis
+        run: vp check
 
       - name: Build
-        run: pnpm run bundle
+        run: vp pack

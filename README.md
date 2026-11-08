@@ -17,7 +17,7 @@
 
 ## 開発
 
-この拡張機能は、[Node.js](https://nodejs.org/)（>=24）と[pnpm](https://pnpm.io/)を使用して開発されています。
+この拡張機能は、[Vite+](https://viteplus.dev/)（[Node.js](https://nodejs.org/) >=24）を使用して開発されています。
 
 ### セットアップ
 
@@ -30,18 +30,24 @@
 2. 依存関係をインストールします。
 
    ```sh
+   vp install
+   # または
    pnpm install
    ```
 
 3. 拡張機能のファイルを`/dist`に生成します。
 
    ```sh
+   vp pack
+   # または
    pnpm run bundle
    ```
 
 4. コードの整形を行います。
 
    ```sh
+   vp fmt
+   # または
    pnpm run fmt
    ```
 
